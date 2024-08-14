@@ -7,8 +7,13 @@ import (
 	"github.com/kauakirchner/first-go-project/src/config/logger"
 	"github.com/kauakirchner/first-go-project/src/config/validation"
 	"github.com/kauakirchner/first-go-project/src/controller/model/request"
-	"github.com/kauakirchner/first-go-project/src/controller/model/response"
+	"github.com/kauakirchner/first-go-project/src/model"
+	"github.com/kauakirchner/first-go-project/src/model/service"
 	"go.uber.org/zap"
+)
+
+var (
+	InterfaceUserDomain model.InterfaceUserDomain
 )
 
 func CreateUser(ctx *gin.Context) {
@@ -20,12 +25,20 @@ func CreateUser(ctx *gin.Context) {
 		ctx.JSON(restErr.Code, restErr)
 		return
 	}
-	logger.Info("User created succesfully", zap.String("journey", "createUser"))
-	response := response.UserResponse{
-		ID:    "test",
-		Email: userRequest.Email,
-		Name:  userRequest.Name,
-		Age:   userRequest.Age,
+	domain := model.NewUserDomain(
+		userRequest.Email,
+		userRequest.Password,
+		userRequest.Name,
+		userRequest.Age,
+	)
+
+	service := service.NewUserDomainService()
+
+	if err := service.CreateUser(domain); err != nil {
+		ctx.JSON(err.Code, err)
+		return
 	}
-	ctx.JSON(http.StatusOK, response)
+
+	logger.Info("User created succesfully", zap.String("journey", "createUser"))
+	ctx.String(http.StatusOK, "empty")
 }
