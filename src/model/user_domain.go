@@ -53,18 +53,29 @@ func (ud *userDomain) GetJSONValue() (string, error) {
 func (ud *userDomain) GetEmail() string {
 	return ud.Email
 }
+
 func (ud *userDomain) GetPassword() string {
 	return ud.Password
 }
+
 func (ud *userDomain) GetName() string {
 	return ud.Name
 }
+
 func (ud *userDomain) GetAge() int8 {
 	return ud.Age
 }
 
 func (ud *userDomain) SetID(id string) {
 	ud.Id = id
+}
+
+func (ud *userDomain) SetAge(age int8) {
+	ud.Age = age
+}
+
+func (ud *userDomain) SetName(name string) {
+	ud.Name = name
 }
 
 func (ud *userDomain) EncryptPassword() {
