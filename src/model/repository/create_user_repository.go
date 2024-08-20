@@ -2,12 +2,13 @@ package repository
 
 import (
 	"context"
-	"fmt"
 	"os"
 
 	"github.com/kauakirchner/first-go-project/src/config/logger"
 	"github.com/kauakirchner/first-go-project/src/config/rest_err"
 	"github.com/kauakirchner/first-go-project/src/model"
+	"github.com/kauakirchner/first-go-project/src/model/repository/entity/converter"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/zap"
 )
@@ -27,16 +28,12 @@ func (ur *userRepository) CreteUser(
 
 	collection := ur.db.Collection(os.Getenv(DB_USER_COLLECTION))
 
-	value, err := userDomain.GetJSONValue()
-	if err != nil {
-		fmt.Println(err)
-		return nil, rest_err.NewInternalServerError(err.Error())
-	}
+	value := converter.ConvertDomainToEntity(userDomain)
 	result, err := collection.InsertOne(context.Background(), value)
 	if err != nil {
 		return nil, rest_err.NewInternalServerError(err.Error())
 	}
+	value.ID = result.InsertedID.(primitive.ObjectID)
 
-	userDomain.SetID(result.InsertedID.(string))
-	return userDomain, nil
+	return converter.ConvertEntityToDomain(*value), nil
 }
