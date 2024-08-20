@@ -2,4 +2,4 @@ package controller
 
 import "github.com/gin-gonic/gin"
 
-func DeleteUser(ctx *gin.Context) {}
+func (uc *interfaceUserController) DeleteUser(ctx *gin.Context) {}

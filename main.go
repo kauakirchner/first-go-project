@@ -5,7 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"github.com/kauakirchner/first-go-project/src/controller"
 	"github.com/kauakirchner/first-go-project/src/controller/routes"
+	"github.com/kauakirchner/first-go-project/src/model/service"
 )
 
 func main() {
@@ -13,8 +15,10 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	service := service.NewUserDomainService()
+	userController := controller.NewUserControllerInterface(service)
 	router := gin.Default()
-	routes.InitRoutes(&router.RouterGroup)
+	routes.InitRoutes(&router.RouterGroup, userController)
 
 	if err := router.Run(":8080"); err != nil {
 		log.Fatal(err)
