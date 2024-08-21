@@ -7,10 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/kauakirchner/first-go-project/src/config/database/mongodb"
-	"github.com/kauakirchner/first-go-project/src/controller"
 	"github.com/kauakirchner/first-go-project/src/controller/routes"
-	"github.com/kauakirchner/first-go-project/src/model/repository"
-	"github.com/kauakirchner/first-go-project/src/model/service"
 )
 
 func main() {
@@ -23,9 +20,7 @@ func main() {
 		log.Fatalf("Error trying to connect to database, error=%s \n", err.Error())
 		return
 	}
-	repo := repository.NewUserRepository(db)
-	service := service.NewUserDomainService(repo)
-	userController := controller.NewUserControllerInterface(service)
+	userController := initDependencies(db)
 	router := gin.Default()
 	routes.InitRoutes(&router.RouterGroup, userController)
 
