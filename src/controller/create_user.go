@@ -36,7 +36,7 @@ func (uc *interfaceUserController) CreateUser(ctx *gin.Context) {
 		userRequest.Age,
 	)
 
-	domainResult, err := uc.service.CreateUser(domain)
+	domainResult, err := uc.service.CreateUserServices(domain)
 
 	if err != nil {
 		logger.Error(

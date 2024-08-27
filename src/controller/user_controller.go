@@ -15,7 +15,7 @@ func NewUserControllerInterface(
 
 type InterfaceUserController interface {
 	FindUserByEmail(ctx *gin.Context)
-	FindUserById(ctx *gin.Context)
+	FindUserByID(ctx *gin.Context)
 
 	CreateUser(ctx *gin.Context)
 	UpdateUser(ctx *gin.Context)

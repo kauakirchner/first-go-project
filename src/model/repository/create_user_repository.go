@@ -9,22 +9,13 @@ import (
 	"github.com/kauakirchner/first-go-project/src/model"
 	"github.com/kauakirchner/first-go-project/src/model/repository/entity/converter"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/zap"
 )
 
-var (
-	DB_USER_COLLECTION = "DB_USER_COLLECTION"
-)
-
-type userRepository struct {
-	db *mongo.Database
-}
-
-func (ur *userRepository) CreteUser(
+func (ur *userRepository) CreateUser(
 	userDomain model.InterfaceUserDomain,
 ) (model.InterfaceUserDomain, *rest_err.RestErr) {
-	logger.Info("Init create user repository", zap.String("journey", "userRepository"))
+	logger.Info("Init CreateUser repository", zap.String("journey", "createUser"))
 
 	collection := ur.db.Collection(os.Getenv(DB_USER_COLLECTION))
 
