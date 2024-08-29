@@ -1,5 +1,7 @@
 package model
 
+import "github.com/kauakirchner/first-go-project/src/config/rest_err"
+
 type InterfaceUserDomain interface {
 	GetEmail() string
 	GetPassword() string
@@ -10,6 +12,7 @@ type InterfaceUserDomain interface {
 	SetID(string)
 
 	EncryptPassword()
+	GenerateToken() (string, *rest_err.RestErr)
 }
 
 func NewUserDomain(

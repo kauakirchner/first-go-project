@@ -1,0 +1,48 @@
+// Find user on database by email
+GET http://localhost:8080/getUserByEmail/:userEmail
+Accept: application/json
+Authorization:
+###
+
+// Find user on database by ID
+GET http://localhost:8080/user/:userId
+Accept: application/json
+Authorization:
+###
+
+// Create an user on database
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "email": "johndoe@email.com",
+  "age": 20,
+  "password": "jhon#!@!dwdw",
+  "name": "John Doe"
+}
+###
+
+// Update an user
+PUT http://localhost:8080/user/:userId
+Content-Type: application/json
+
+{
+  "email": "newjohn@email.com",
+  "age": 21
+}
+###
+
+// Delete an user on database given an userId
+DELETE http://localhost:8080/user/:userId
+Accept: application/json
+###
+
+// Do user login with email and password
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "newjohn@email.com",
+  "password": "jhon#!@!dwdw"
+}
+###
