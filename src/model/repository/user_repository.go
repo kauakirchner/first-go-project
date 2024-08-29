@@ -37,4 +37,13 @@ type InterfaceUserRepository interface {
 		id string,
 		userDomain model.InterfaceUserDomain,
 	) *rest_err.RestErr
+
+	DeleteUser(
+		id string,
+	) *rest_err.RestErr
+
+	FindUserByEmailAndPassword(
+		email,
+		password string,
+	) (model.InterfaceUserDomain, *rest_err.RestErr)
 }
