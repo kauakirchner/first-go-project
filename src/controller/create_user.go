@@ -15,6 +15,7 @@ import (
 func (uc *interfaceUserController) CreateUser(ctx *gin.Context) {
 	logger.Info("Init CreateUser controller", zap.String("journey", "createUser"))
 	var userRequest request.UserRequest
+
 	if err := ctx.ShouldBindJSON(&userRequest); err != nil {
 		logger.Error(
 			"Error trying to validade user info",
