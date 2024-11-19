@@ -6,10 +6,18 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	_ "github.com/kauakirchner/first-go-project/docs"
 	"github.com/kauakirchner/first-go-project/src/config/database/mongodb"
 	"github.com/kauakirchner/first-go-project/src/controller/routes"
 )
 
+// @title My first Go project
+// @version 1.0
+// @description API for crud operations on users
+// @host localhost:8080
+// @BasePath /
+// @schemes http
+// @license MIT
 func main() {
 	err := godotenv.Load()
 	if err != nil {
