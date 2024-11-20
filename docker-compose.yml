@@ -1,0 +1,35 @@
+version: '3'
+services:
+  firstgoproject:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URI=mongodb://mongodb:27017
+      - JWT_SECRET_KEY=5316e24a%$#%&@@@$%70985ec870621448980f4bb101201d2ff27d1e6fa2b50bd2c0bec3a3
+      - LOG_LEVEL=DEBUG
+      - DB_USER_DATABASE=crudInit
+      - DB_USER_COLLECTION=users
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+
+    networks:
+      - firstgoproject_network
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - firstgoproject_network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.runCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    
+networks:
+  firstgoproject_network:

@@ -56,7 +56,7 @@ func AuthMiddleware(
 		ctx.Request.Header.Get("Authorization"),
 	)
 
-	tokenValue, err := jwt.Parse(RemoveBearerPrefix(token), func(token *jwt.Token) (interface{}, error) {
+	tokenValue, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); ok {
 			return []byte(secretKey), nil
 		}
@@ -92,9 +92,5 @@ func AuthMiddleware(
 }
 
 func RemoveBearerPrefix(token string) string {
-	if strings.HasPrefix(token, "Bearer ") {
-		token = strings.Trim("Bearer ", token)
-	}
-
-	return token
+	return strings.TrimPrefix(token, "Bearer ")
 }
